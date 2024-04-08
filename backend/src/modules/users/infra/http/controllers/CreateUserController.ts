@@ -7,7 +7,7 @@ export async function createUserController(request: FastifyRequest, response: Fa
         name: z.string(),
         email: z.string(),
         password: z.string(),
-        dateOfBirth: z.date(),
+        dateOfBirth: z.coerce.date(),
         receivedInviteId: z.number().optional(),
         enrollment: z.string()
     });

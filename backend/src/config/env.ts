@@ -12,9 +12,9 @@ const envSchema = z.object({
   POSTGRES_USER: z.string(),
   POSTGRES_DB: z.string(),
   DATABASE_URL: z.string().url(),
-  JWT_SECRET: z.string(),
-  TOKEN_COOKIE_NAME: z.string(),
-  REFRESH_TOKEN_COOKIE_NAME: z.string(),
+  // JWT_SECRET: z.string(),
+  // TOKEN_COOKIE_NAME: z.string(),
+  // REFRESH_TOKEN_COOKIE_NAME: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);

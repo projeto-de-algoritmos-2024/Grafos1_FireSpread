@@ -50,6 +50,9 @@ export class CreateUser
           {
             throw new Error('Invite ID does not exist');
           }
+
+
+          console.log({name, email, password: hashedPassword, birthday:dateOfBirth, inviteId, enrollment, invitedById: userWithInviteId.id})
           const user = await this.userRepository.create({
             name,
             email,
@@ -64,6 +67,7 @@ export class CreateUser
 
     }
     
+    console.log({name, email, password: hashedPassword, birthday:dateOfBirth, inviteId, enrollment})
     const user = await this.userRepository.create({
         name,
         email,
