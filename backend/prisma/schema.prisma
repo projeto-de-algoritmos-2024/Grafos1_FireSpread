@@ -21,7 +21,7 @@ model User {
   birthday DateTime
   enrollment String @unique
   invitedById Int?  
-  inviteId Int
+  inviteId Int @unique
   friends User[] @relation("UserFriends")
   friendOf User[] @relation("UserFriends")
   invitedBy User? @relation("UserInvitedBy", fields: [invitedById], references: [id])
