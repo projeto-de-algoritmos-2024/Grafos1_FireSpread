@@ -9,4 +9,5 @@ export interface IUserRepository {
   restoreById(id: string): Promise<void>;
   list(): Promise<User[]>;
   userCount(): Promise<number>;
+  addFriend(userId: string, friendId: string): Promise<void>;
 }

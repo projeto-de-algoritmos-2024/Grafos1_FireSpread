@@ -62,6 +62,8 @@ export class CreateUser
             enrollment,
             invitedById: userWithInviteId.id
           });
+
+          await this.userRepository.addFriend(userWithInviteId.id, user.id);
           return user;
         }
 
