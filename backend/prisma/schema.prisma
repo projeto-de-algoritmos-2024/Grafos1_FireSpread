@@ -14,13 +14,13 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
+  id      String      @id @default(uuid())
   email   String   @unique
   password String
   name    String
   birthday DateTime
   enrollment String @unique
-  invitedById Int?  
+  invitedById String?  
   inviteId Int @unique
   friends User[] @relation("UserFriends")
   friendOf User[] @relation("UserFriends")
