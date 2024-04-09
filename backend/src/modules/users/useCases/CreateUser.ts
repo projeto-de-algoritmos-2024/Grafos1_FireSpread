@@ -40,7 +40,7 @@ export class CreateUser
 
     const userCount = await this.userRepository.userCount();
 
-    if(userCount >= 10)
+    if(userCount >= 1)
     {
       if(receivedInviteId)
         {

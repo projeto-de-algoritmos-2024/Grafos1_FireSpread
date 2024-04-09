@@ -37,6 +37,13 @@ export class PrismaUserRepository implements IUserRepository {
     const count = await this.prisma.user.count();
     return count;
   }
+  async listUserFriends(userId: string): Promise<User[]> {
+    const user = await this.prisma.user.findUnique({where: {id: userId}, include: {friends: true}});
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user.friends;
+  }
 
   async addFriend(userId: string, friendId: string): Promise<void> {
     await this.prisma.user.update({

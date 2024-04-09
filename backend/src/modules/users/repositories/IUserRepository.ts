@@ -8,6 +8,7 @@ export interface IUserRepository {
   deleteById(id: string): Promise<void>;
   restoreById(id: string): Promise<void>;
   list(): Promise<User[]>;
+  listUserFriends(userId: string): Promise<User[]>;
   userCount(): Promise<number>;
   addFriend(userId: string, friendId: string): Promise<void>;
 }
