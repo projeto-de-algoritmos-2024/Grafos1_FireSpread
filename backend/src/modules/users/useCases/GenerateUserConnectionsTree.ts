@@ -4,18 +4,26 @@ interface IQueueItem {
   id: string;
   parent: string | null;
 }
-interface ITreeNode {
-  parent: string | null;
-  children: string[];
+interface IResponse {
+  nodes: {
+    id: string;
+  }[];
+  links: {
+    source: string;
+    target: string;
+  }[]
 }
 
 export class GenerateUserConnectionsTree {
   constructor(private userRepository: IUserRepository) {}
 
-  async execute(userId: string): Promise<Record<string, ITreeNode>> {
+  async execute(userId: string): Promise<IResponse> {
     const fila: IQueueItem[] = [{id: userId, parent: null}];
     const visited = new Set();
-    const tree: Record<string, ITreeNode> = {};
+    const tree: IResponse = {
+      nodes: [],
+      links: []
+    };
 
     while (fila.length > 0) {
       const currentNode = fila.shift();
@@ -28,13 +36,15 @@ export class GenerateUserConnectionsTree {
 
       if (!visited.has(currentUserId)) {
         visited.add(currentUserId);
-        if (!tree[currentUserId]) {
-          tree[currentUserId] = {parent: currentParent, children: []};
-          
+
+        if(tree.nodes.findIndex(node => node.id === currentUserId) === -1) {
+          tree.nodes.push({id: currentUserId});
         }
-        if (currentParent !== null && tree[currentParent]) {
-          tree[currentParent].children.push(currentUserId);
+
+        if (currentParent !== null) {
+          tree.links.push({source: currentParent, target: currentUserId});
         }
+        
         const friends = await this.userRepository.listUserFriends(currentUserId);
         for (const friend of friends) {
           fila.push({ id: friend.id, parent: currentUserId });
