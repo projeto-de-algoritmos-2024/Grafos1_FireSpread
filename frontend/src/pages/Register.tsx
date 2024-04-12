@@ -1,13 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { AuthForm } from "../components/shared/AuthForm";
+import { useAuth } from "../hooks/useAuth";
+import { useEffect } from "react";
 
 
 export default function Register() {
-  const navigation = useNavigate();
-  const cookie = localStorage.getItem(import.meta.env.VITE_PUBLIC_TOKEN_COOKIE_NAME);
-  if(cookie) {
-    navigation("/");
-  }
+  const navigation = useNavigate()
+
+  const { user } = useAuth(); 
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      if(user) {
+        navigation('/')
+      }
+    }
+
+    checkAuth()
+  })
+
 
   return (
       <main className="w-screen h-screen bg-background justify-center items-center flex flex-col gap-4">

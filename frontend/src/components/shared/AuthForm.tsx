@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/api";
 import { AxiosError } from "axios";
+import { useAuth } from "../../hooks/useAuth";
 
 interface AuthFormProps {
   className?: string;
@@ -18,7 +19,7 @@ export function AuthForm({ className }: AuthFormProps) {
     handleSubmit,
 
   } = useForm<Inputs>()
-
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   async function authenticate(data: Inputs) {
@@ -39,8 +40,12 @@ export function AuthForm({ className }: AuthFormProps) {
   }
   
   async function onSubmit(user: Inputs) {
-    const { status } = await authenticate(user); 
+    const { status, body } = await authenticate(user); 
+
+
     if(status == 200) {
+      login(body);
+
       navigate("/");
     } else
       if (status === 404) {

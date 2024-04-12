@@ -1,25 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { AuthForm } from "../components/shared/AuthForm";
 import { useEffect } from "react";
-import { api } from "../lib/api";
+import { useAuth } from "../hooks/useAuth";
 
 
 export default function Login() {
 
   const navigation = useNavigate()
 
+  const { user } = useAuth(); 
+
   useEffect(() => {
     const checkAuth = async () => {
-      try {
-        const response = await api.get('/users/check-auth', {withCredentials: true});
-
-        if (response.status == 200) {
-          navigation('/')
-        }
-
-      }
-      catch (error) {
-        console.log("not authenticated")
+      if(user) {
+        navigation('/')
       }
     }
 
