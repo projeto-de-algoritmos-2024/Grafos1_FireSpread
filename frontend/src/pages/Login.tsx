@@ -32,7 +32,7 @@ export default function Login() {
             </p>
           </div>
           <AuthForm className="flex flex-col gap-8 mb-4" />
-          <button className="w-full bg-secondaryButton text-secondaryText" type="submit">Cadastrar-me</button>
+          <button className="w-full bg-secondaryButton text-secondaryText" type="submit" onClick={()=>{navigation('/register')}}>Cadastrar-me</button>
         </div>
       </main>
   );
