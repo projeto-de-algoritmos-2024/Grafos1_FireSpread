@@ -1,30 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { AuthForm } from "../components/shared/AuthForm";
-import { useEffect } from "react";
-import { api } from "../lib/api";
 
 
-export default function Login() {
-
-  const navigation = useNavigate()
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await api.get('/users/check-auth', {withCredentials: true});
-
-        if (response.status == 200) {
-          navigation('/')
-        }
-
-      }
-      catch (error) {
-        console.log("not authenticated")
-      }
-    }
-
-    checkAuth()
-  })
+export default function Register() {
+  const navigation = useNavigate();
+  const cookie = localStorage.getItem(import.meta.env.VITE_PUBLIC_TOKEN_COOKIE_NAME);
+  if(cookie) {
+    navigation("/");
+  }
 
   return (
       <main className="w-screen h-screen bg-background justify-center items-center flex flex-col gap-4">

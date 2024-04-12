@@ -1,8 +1,31 @@
-
-import './App.css'
+import { useEffect } from 'react'
 import { ForceGraph2D } from 'react-force-graph'
+import { api } from './lib/api'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
+
+  const navigation = useNavigate()
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await api.get('/users/check-auth', {withCredentials: true});
+
+        if (response.status !== 200) {
+          navigation('/login')
+        }
+
+      }
+      catch (error) {
+        navigation('/login')
+      }
+    }
+
+    checkAuth()
+  })
+
+
   const data = {
     "nodes": [
       {

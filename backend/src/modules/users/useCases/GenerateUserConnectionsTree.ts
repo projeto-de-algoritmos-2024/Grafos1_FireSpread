@@ -19,14 +19,15 @@ export class GenerateUserConnectionsTree {
 
   async execute(userId: string): Promise<IResponse> {
     const fila: IQueueItem[] = [{id: userId, parent: null}];
+    let pointer = 0;
     const visited = new Set();
     const tree: IResponse = {
       nodes: [],
       links: []
     };
 
-    while (fila.length > 0) {
-      const currentNode = fila.shift();
+    while (pointer < fila.length) {
+      const currentNode = fila[pointer++];
 
       if (!currentNode) {
         continue;

@@ -15,6 +15,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   TOKEN_COOKIE_NAME: z.string(),
   REFRESH_TOKEN_COOKIE_NAME: z.string(),
+  CORS_ORIGIN: z.string().url(),
 });
 
 const _env = envSchema.safeParse(process.env);

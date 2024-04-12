@@ -8,11 +8,16 @@ interface AuthFormProps {
 }
 
 type Inputs = {
+  name: string;
   email: string;
   password: string;
+  dateOfBirth: string;
+  enrollment: string;
+  receivedInviteId?: string;
+
 };
 
-export function AuthForm({ className }: AuthFormProps) {
+export function RegisterForm({ className }: AuthFormProps) {
   const {
     register,
     handleSubmit,
@@ -21,9 +26,9 @@ export function AuthForm({ className }: AuthFormProps) {
 
   const navigate = useNavigate();
 
-  async function authenticate(data: Inputs) {
+  async function register(data: Inputs) {
     try {
-      const res = await api.post("/users/authenticate", data);
+      const res = await api.post("/users/create", data);
       return {
         status: res.status,
         body: res.data
@@ -39,7 +44,7 @@ export function AuthForm({ className }: AuthFormProps) {
   }
   
   async function onSubmit(user: Inputs) {
-    const { status } = await authenticate(user); 
+    const { status } = await register(user); 
     if(status == 200) {
       navigate("/");
     } else

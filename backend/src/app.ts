@@ -7,7 +7,13 @@ import fastifyJwt from "@fastify/jwt";
 import { env } from "./config/env";
 export const app = fastify();
 
-app.register(fastifyCors);
+app.register(fastifyCors,
+  {
+    origin: env.CORS_ORIGIN,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }
+);
 app.register(fastifyCookie);
 
 app.register(multer.contentParser);
@@ -31,7 +37,6 @@ app.setErrorHandler((error, _, reply) => {
   console.error(error);
   reply.code(500).send({ message: "Internal server error " + error });
 
-  console.error(error);
 })
 
 
