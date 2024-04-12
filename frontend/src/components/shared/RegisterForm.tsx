@@ -13,7 +13,7 @@ type Inputs = {
   password: string;
   dateOfBirth: string;
   enrollment: string;
-  receivedInviteId?: string;
+  receivedInviteId?: number;
 
 };
 
@@ -26,9 +26,19 @@ export function RegisterForm({ className }: AuthFormProps) {
 
   const navigate = useNavigate();
 
-  async function register(data: Inputs) {
+  async function registerUser(data: Inputs) {
     try {
-      const res = await api.post("/users/create", data);
+      console.log(data);
+      let dataToSend: { [key: string]: any } = {};
+      for (let key in data) {
+        if (data.hasOwnProperty(key) && data[key as keyof Inputs] !== undefined) {
+          dataToSend[key] = data[key as keyof Inputs];
+        }
+      }
+      if (dataToSend.receivedInviteId){
+        dataToSend.receivedInviteId = parseInt(dataToSend.receivedInviteId);
+      }
+      const res = await api.post("/users/create", dataToSend);
       return {
         status: res.status,
         body: res.data
@@ -44,9 +54,9 @@ export function RegisterForm({ className }: AuthFormProps) {
   }
   
   async function onSubmit(user: Inputs) {
-    const { status } = await register(user); 
-    if(status == 200) {
-      navigate("/");
+    const { status } = await registerUser(user); 
+    if(status == 201) {
+      navigate("/login");
     } else
       if (status === 404) {
         console.log({
@@ -65,17 +75,57 @@ export function RegisterForm({ className }: AuthFormProps) {
 
   return(
     <form onSubmit={handleSubmit(onSubmit)} className={className}>
-      <input className="h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
+      <div>
+      <label className="text-[#E8E8E8] text-sm">Nome</label>
+      <input className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
+        type="text"
+        placeholder="Salivan Silveira da Silva"
+        {...register("name", { required: true })}
+      />
+      </div>
+      <div>
+      <label className="text-[#E8E8E8] text-sm">Matrícula</label>
+      <input className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
+        type="text"
+        placeholder="000000000"
+        {...register("enrollment", { required: true })}
+      />
+      </div>
+      <div>
+      <label className="text-[#E8E8E8] text-sm">Email</label>
+      <input className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
         type="email"
-        placeholder="E-mail"
+        placeholder="000000000@aluno.unb.br"
         {...register("email", { required: true })}
       />
-      <input className="h-10 rounded-md border-[0.5px] px-4 bg-input border-stroke"
+      </div>
+      <div>
+      <label className="text-[#E8E8E8] text-sm">Senha</label>
+      <input className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
         type="password"
         placeholder="Senha"
         {...register("password", { required: true })}
       />
-      <button className="bg-primaryButton text-primaryText" type="submit">Entrar</button>
+      </div>
+      <div>
+      <label className="text-[#E8E8E8] text-sm">Data de nascimento</label>
+      <input className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
+        type="date"
+        placeholder="Data de nascimento"
+        {...register("dateOfBirth", { required: true })}
+      />
+      </div>
+      <div>
+      <label className="text-[#E8E8E8] text-sm">Código de convite</label>
+      <input className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
+        type="number"
+        placeholder="0000"
+        {...register("receivedInviteId")}
+      />
+      </div>
+      
+      
+      <button className="mt-2 bg-primaryButton text-primaryText" type="submit">Registrar-me</button>
     </form>
   )
 }
