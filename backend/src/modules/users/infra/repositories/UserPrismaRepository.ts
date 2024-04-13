@@ -51,6 +51,26 @@ export class PrismaUserRepository implements IUserRepository {
     if (!user || !friend) {
       return false;
     }
+
+    if (user.id === friend.id) {
+      return false;
+    }
+
+    const alreadyFriend = await this.prisma.user.findFirst({
+      where: {
+        id: userId,
+        friends: {
+          some: {
+            id: friend.id
+          }
+        }
+      }
+    });
+
+    if (alreadyFriend) {
+      return false;
+    }
+
     await this.prisma.user.update({
       where: {id: userId},
       data: {
