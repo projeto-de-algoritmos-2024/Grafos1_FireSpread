@@ -11,4 +11,5 @@ export interface IUserRepository {
   listUserFriends(userId: string): Promise<User[]>;
   userCount(): Promise<number>;
   addFriend(userId: string, friendId: string): Promise<void>;
+  countFriends(user: User): Promise<number>;
 }

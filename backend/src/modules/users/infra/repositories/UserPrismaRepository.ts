@@ -54,5 +54,27 @@ export class PrismaUserRepository implements IUserRepository {
         }
       }
     });
+
+    await this.prisma.user.update({
+      where: {id: friendId},
+      data: {
+        friends: {
+          connect: {id: userId}
+        }
+      }
+    });
+  }
+
+  async countFriends(user: User): Promise<number> {
+    const count = await this.prisma.user.count({
+      where: {
+        friends: {
+          some: {
+            id: user.id
+          }
+        }
+      }
+    });
+    return count;
   }
 }

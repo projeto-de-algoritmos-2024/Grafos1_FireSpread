@@ -1,8 +1,8 @@
 import { PrismaUserRepository } from "../../infra/repositories/UserPrismaRepository";
-import { GetUser } from "../GetUser";
+import { GetUsersCount } from "../GetUsersCount";
 
 
-export function MakeGetUser() {
+export function MakeGetUsersCount() {
   const userRepository = new PrismaUserRepository();
-  return new GetUser(userRepository);
+  return new GetUsersCount(userRepository);
 }

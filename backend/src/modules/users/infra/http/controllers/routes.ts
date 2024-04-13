@@ -4,6 +4,7 @@ import { GenerateUserConnectionsTreeController } from "./GenerateUserConnections
 import { AuthenticateUserController } from "./AuthenticateUserController";
 import verifyJWT from "../../../../../shared/middlewares/VerifyJWT";
 import { GetUserController } from "./GetUserController";
+import { GetUsersCountController } from "./GetUsersCountController";
 
 
 export async function userRoutes(app: FastifyInstance) {
@@ -11,6 +12,7 @@ export async function userRoutes(app: FastifyInstance) {
   app.post("/create", CreateUserController);
 
   app.post("/authenticate", AuthenticateUserController);
+  app.get("/count", GetUsersCountController);
 
   app.register(authenticatedRoutes);
   

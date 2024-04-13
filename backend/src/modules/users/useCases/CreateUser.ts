@@ -64,7 +64,6 @@ export class CreateUser
           });
 
           await this.userRepository.addFriend(userWithInviteId.id, user.id);
-          await this.userRepository.addFriend(user.id, userWithInviteId.id);
           return user;
         }
 

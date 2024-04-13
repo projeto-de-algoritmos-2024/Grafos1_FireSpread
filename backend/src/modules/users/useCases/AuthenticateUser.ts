@@ -11,7 +11,7 @@ interface IRequest {
 export class AuthenticateUser {
   constructor(private userRepository: IUserRepository) {}
 
-  async execute({ email, password }: IRequest): Promise<Omit<User, "password" >> {
+  async execute({ email, password }: IRequest): Promise<Omit<User, "password"> & { friendsCount: number }> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
@@ -24,6 +24,8 @@ export class AuthenticateUser {
       throw new Error("Incorrect password");
     }
 
+    const friendsCount = await this.userRepository.countFriends(user);
+
     return {
       id: user.id,
       email: user.email,
@@ -32,6 +34,7 @@ export class AuthenticateUser {
       enrollment: user.enrollment,
       inviteId: user.inviteId,
       invitedById: user.invitedById,
+      friendsCount,
     };
   }
 }
