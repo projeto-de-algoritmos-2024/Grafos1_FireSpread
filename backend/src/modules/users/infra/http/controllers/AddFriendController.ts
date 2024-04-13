@@ -10,7 +10,7 @@ export async function AddFriendController(request: FastifyRequest, response: Fas
   const id = userData.sub;  
 
   const addFriendBodySchema = z.object({
-    inviteId: z.string()
+    inviteId: z.number(),
   });
 
   const data = addFriendBodySchema.parse(request.body);

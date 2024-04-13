@@ -63,7 +63,7 @@ export class CreateUser
             invitedById: userWithInviteId.id
           });
 
-          await this.userRepository.addFriend(userWithInviteId.id, user.id);
+          await this.userRepository.addFriend(userWithInviteId.id, receivedInviteId);
           return user;
         }
 

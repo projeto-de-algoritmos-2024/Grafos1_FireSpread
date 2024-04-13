@@ -45,9 +45,9 @@ export class PrismaUserRepository implements IUserRepository {
     return user.friends;
   }
 
-  async addFriend(userId: string, friendId: string): Promise<Boolean> {
+  async addFriend(userId: string, friendInviteId: number): Promise<Boolean> {
     const user = await this.prisma.user.findUnique({where: {id: userId}});
-    const friend = await this.prisma.user.findUnique({where: {id: friendId}});
+    const friend = await this.prisma.user.findFirst({where: {inviteId: friendInviteId}});
     if (!user || !friend) {
       return false;
     }
@@ -56,14 +56,14 @@ export class PrismaUserRepository implements IUserRepository {
       data: {
         friends: {
           connect: {
-            id: friendId
+            id: friend.id
           }
         }
       }
     });
 
     await this.prisma.user.update({
-      where: {id: friendId},
+      where: {id: friend.id},
       data: {
         friends: {
           connect: {

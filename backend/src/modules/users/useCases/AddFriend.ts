@@ -3,7 +3,7 @@ import { IUserRepository } from "../repositories/IUserRepository";
 
 interface IRequest {
   id: string;
-  inviteId: string;
+  inviteId: number;
 }
 
 export class AddFriend {
