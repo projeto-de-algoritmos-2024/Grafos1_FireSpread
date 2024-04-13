@@ -5,6 +5,7 @@ import { AuthenticateUserController } from "./AuthenticateUserController";
 import verifyJWT from "../../../../../shared/middlewares/VerifyJWT";
 import { GetUserController } from "./GetUserController";
 import { GetUsersCountController } from "./GetUsersCountController";
+import { AddFriendController } from "./AddFriendController";
 
 
 export async function userRoutes(app: FastifyInstance) {
@@ -23,6 +24,7 @@ const authenticatedRoutes: FastifyPluginCallback = (app, _, done) => {
   app.get("/generate-tree/:id", GenerateUserConnectionsTreeController);
 
   app.get("/check-auth", GetUserController);
+  app.post("/addFriend", AddFriendController);
 
   done();
 }

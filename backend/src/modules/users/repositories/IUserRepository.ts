@@ -10,6 +10,6 @@ export interface IUserRepository {
   list(): Promise<User[]>;
   listUserFriends(userId: string): Promise<User[]>;
   userCount(): Promise<number>;
-  addFriend(userId: string, friendId: string): Promise<void>;
+  addFriend(userId: string, friendId: string): Promise<Boolean>;
   countFriends(user: User): Promise<number>;
 }
