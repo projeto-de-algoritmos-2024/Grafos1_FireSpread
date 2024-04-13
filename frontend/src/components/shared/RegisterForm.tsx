@@ -29,8 +29,8 @@ export function RegisterForm({ className }: AuthFormProps) {
   async function registerUser(data: Inputs) {
     try {
       console.log(data);
-      let dataToSend: { [key: string]: any } = {};
-      for (let key in data) {
+      const dataToSend: { [key: string]: any } = {};
+      for (const key in data) {
         if (data.hasOwnProperty(key) && data[key as keyof Inputs] !== undefined) {
           dataToSend[key] = data[key as keyof Inputs];
         }

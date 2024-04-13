@@ -7,4 +7,5 @@ export interface User {
   dateOfBirth: string;
   enrollment: string;
   inviteId: string;
+  friendsCount: number;
 }
