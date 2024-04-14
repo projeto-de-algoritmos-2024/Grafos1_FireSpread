@@ -20,6 +20,24 @@ export default withMT( {
         "secondaryText": "#000000",
         "stroke": "#585858",
         "inputText": "#E0E0E0",
+        "error": "#BF281B",
+        "warning": "#F5BD42",
+        "success": "#00A896",
+      },
+      keyframes: {
+        slidePlaceholderMd: {
+          '0%, 100%': { textIndent: '0' },
+          '50%': { textIndent: '-60px' }, // Adjust as needed
+        },
+        slidePlaceholderSm: {
+          '0%, 100%': { textIndent: '0' },
+          '50%': { textIndent: '-90px' }, // Adjust as needed
+        },
+      },
+      animation: {
+        'slide-placeholder-md': 'slidePlaceholderMd 8s ease-in-out infinite',
+        'slide-placeholder-sm': 'slidePlaceholderSm 8s ease-in-out infinite',
+        'spin-slow': 'spin 3s linear infinite',
       }
     },
   }, 

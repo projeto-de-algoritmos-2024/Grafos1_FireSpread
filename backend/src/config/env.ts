@@ -16,6 +16,10 @@ const envSchema = z.object({
   TOKEN_COOKIE_NAME: z.string(),
   REFRESH_TOKEN_COOKIE_NAME: z.string(),
   CORS_ORIGIN: z.string().url(),
+  EMAIL: z.string(),
+  EMAIL_PASSWORD: z.string(),
+  EMAIL_REFRESH_TOKEN: z.string(),
+  EMAIL_REDIRECT_URI: z.string().url(),
 });
 
 const _env = envSchema.safeParse(process.env);

@@ -1,6 +1,8 @@
 import { User } from "@prisma/client";
 import { IUserRepository } from "../repositories/IUserRepository";
 import bcrypt from 'bcrypt';
+import { ConflictError } from "../../../shared/errors/ConflictError";
+
 
 interface IRequest
 {
@@ -14,7 +16,10 @@ interface IRequest
 
 export class CreateUser
 {
-  constructor(private userRepository: IUserRepository)
+  constructor(
+    private userRepository: IUserRepository,
+  
+  )
   {
   }
 
@@ -24,16 +29,18 @@ export class CreateUser
 
     if (userAlreadyExists)
     {
-      throw new Error('User already exists');
+      throw new ConflictError('Usuário já existe.');
     }
 
     const domain = email.split("@")[1]
 
     if (domain !== "aluno.unb.br" && domain !== "unb.br") {
-      throw new Error("Cannot create e-mail from outside UnB.")
+      throw new ConflictError("Email inválido. Utilize um email institucional da UnB.")
     }
 
-    const verificationCode = Math.floor(100000 + Math.random() * 900000)
+
+
+    
     const inviteId = Math.floor(1000 + Math.random() * 9000)
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -48,7 +55,7 @@ export class CreateUser
     
           if(!userWithInviteId)
           {
-            throw new Error('Invite ID does not exist');
+            throw new ConflictError('ID de convite invalido.');
           }
 
 

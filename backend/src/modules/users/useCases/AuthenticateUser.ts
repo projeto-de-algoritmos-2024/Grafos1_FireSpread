@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { IUserRepository } from "../repositories/IUserRepository";
 import bcrypt from 'bcrypt';
+import { NotFoundError } from "../../../shared/errors/NotFoundError";
 
 
 interface IRequest {
@@ -15,13 +16,13 @@ export class AuthenticateUser {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error("User not found");
+      throw new NotFoundError("Email ou senha incorretos!");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error("Incorrect password");
+      throw new NotFoundError("Email ou senha incorretos!");
     }
 
     const friendsCount = await this.userRepository.countFriends(user);

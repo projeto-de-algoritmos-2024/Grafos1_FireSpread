@@ -6,6 +6,7 @@ import verifyJWT from "../../../../../shared/middlewares/VerifyJWT";
 import { GetUserController } from "./GetUserController";
 import { GetUsersCountController } from "./GetUsersCountController";
 import { AddFriendController } from "./AddFriendController";
+import { LuckyUserController } from "./LuckyUserController";
 
 
 export async function userRoutes(app: FastifyInstance) {
@@ -14,6 +15,7 @@ export async function userRoutes(app: FastifyInstance) {
 
   app.post("/authenticate", AuthenticateUserController);
   app.get("/count", GetUsersCountController);
+  app.get("/isLucky", LuckyUserController);
 
   app.register(authenticatedRoutes);
   

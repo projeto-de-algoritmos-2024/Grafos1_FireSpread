@@ -14,16 +14,23 @@ datasource db {
 }
 
 model User {
-  id      String      @id @default(uuid())
-  email   String   @unique
-  password String
-  name    String
-  birthday DateTime
-  enrollment String @unique
-  invitedById String?  
-  inviteId Int @unique
-  friends User[] @relation("UserFriends")
-  friendOf User[] @relation("UserFriends")
-  invitedBy User? @relation("UserInvitedBy", fields: [invitedById], references: [id])
-  invited   User[] @relation("UserInvitedBy")
-  }
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String
+  name        String
+  birthday    DateTime
+  enrollment  String   @unique
+  invitedById String?
+  inviteId    Int      @unique
+  friends     User[]   @relation("UserFriends")
+  friendOf    User[]   @relation("UserFriends")
+  invitedBy   User?    @relation("UserInvitedBy", fields: [invitedById], references: [id])
+  invited     User[]   @relation("UserInvitedBy")
+}
+
+model EmailVerification {
+  id        String   @id @default(uuid())
+  email     String
+  token     Int
+  createdAt DateTime @default(now())
+}
