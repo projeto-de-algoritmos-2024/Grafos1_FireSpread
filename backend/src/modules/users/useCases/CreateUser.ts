@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 import { IUserRepository } from "../repositories/IUserRepository";
 import bcrypt from 'bcrypt';
 import { ConflictError } from "../../../shared/errors/ConflictError";
+import allowedEmailDomains from "../../../shared/utils/allowedDomains";
 
 
 interface IRequest
@@ -34,8 +35,8 @@ export class CreateUser
 
     const domain = email.split("@")[1]
 
-    if (domain !== "aluno.unb.br" && domain !== "unb.br") {
-      throw new ConflictError("Email inválido. Utilize um email institucional da UnB.")
+    if (allowedEmailDomains.includes(domain) === false){
+      throw new ConflictError("Email inválido. Utilize um email institucional.")
     }
 
 

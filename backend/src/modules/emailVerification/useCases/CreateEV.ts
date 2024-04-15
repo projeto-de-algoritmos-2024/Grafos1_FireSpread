@@ -1,6 +1,7 @@
 import { IMailAdapter } from "../../../shared/adapters/mail-adapter";
 import { BadRequestError } from "../../../shared/errors/BadRequestError";
 import { ConflictError } from "../../../shared/errors/ConflictError";
+import allowedEmailDomains from "../../../shared/utils/allowedDomains";
 import { IEmailVerificationRepository } from "../repositories/IEmailVerificationRepository";
 
 
@@ -15,8 +16,10 @@ export class CreateEV {
 
     const domain = email.split("@")[1]
 
-    if (domain !== "aluno.unb.br" && domain !== "unb.br") {
-      throw new ConflictError("Email inválido. Utilize um email institucional da UnB.")
+    
+
+    if (allowedEmailDomains.includes(domain) === false){
+      throw new ConflictError("Email inválido. Utilize um email institucional.")
     }
 
     const attempts = await this.emailVerificationRepository.countAttempts(email);
