@@ -39,12 +39,12 @@ export async function AuthenticateUserController(request: FastifyRequest, respon
     path: "/",
     httpOnly: true,
     secure: true,
-    sameSite: true,
+    sameSite: "none",
   }).setCookie(env.TOKEN_COOKIE_NAME, token, {
     path: "/",
     httpOnly: true,
     secure: true,
-    sameSite: true,
+    sameSite: "none",
   })
   .status(200)
   .send(user);

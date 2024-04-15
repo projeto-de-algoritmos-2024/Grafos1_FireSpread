@@ -26,7 +26,7 @@ export async function LuckyUserController(request: FastifyRequest, response: Fas
     path: "/",
     httpOnly: true,
     secure: true,
-    sameSite: true,
+    sameSite: "none",
   })
   .status(200)
   .send(isLucky);
