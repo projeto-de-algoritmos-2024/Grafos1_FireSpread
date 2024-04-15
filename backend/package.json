@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsx build src/server.ts"
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "prisma": {
     "seed": "tsx ./prisma/seed.ts"

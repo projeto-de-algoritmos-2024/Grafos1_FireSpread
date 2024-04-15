@@ -30,9 +30,6 @@ export class PrismaUserRepository implements IUserRepository {
   async deleteById(id: string): Promise<void> {
     await this.prisma.user.delete({where: {id}});
   }
-  async restoreById(id: string): Promise<void> {
-    await this.prisma.user.update({where: {id}, data: {deletedAt: null}});
-  }
   async userCount(): Promise<number> {
     const count = await this.prisma.user.count();
     return count;

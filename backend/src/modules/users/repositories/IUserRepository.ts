@@ -6,7 +6,6 @@ export interface IUserRepository {
   findById(id: string): Promise<User | null>;
   findByInviteId(id: number): Promise<User | null>;
   deleteById(id: string): Promise<void>;
-  restoreById(id: string): Promise<void>;
   list(): Promise<User[]>;
   listUserFriends(userId: string): Promise<User[]>;
   userCount(): Promise<number>;
