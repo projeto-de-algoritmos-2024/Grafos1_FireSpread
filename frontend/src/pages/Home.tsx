@@ -17,11 +17,17 @@ interface INode {
   vy: number;
   x: number;
   y: number;
+  name: string;
+}
+
+interface IData {
+  nodes: INode[];
+  links: Record<string, string>[];
 }
 
 function Home() {
   const { user } = useAuth();
-  const [data, setData] = useState({ nodes: [], links: [] });
+  const [data, setData] = useState<IData>({ nodes: [], links: [] });
 
   const [usersCount, setUsersCount] = useState(0);
 
@@ -107,10 +113,13 @@ function Home() {
             linkColor={() => "yellow"}
             nodeColor={(a: INode) => {
               if (a.id === user?.id) {
-                return "green";
+                return "#f2ff05";
               }
               return "orange";
             }}
+            nodeVal={(a: INode) =>
+              a.id === user?.id ? 10 : 5 + Math.random() * 10
+            }
             backgroundColor="#03071E"
             linkDirectionalParticles={0.5}
             warmupTicks={1001}

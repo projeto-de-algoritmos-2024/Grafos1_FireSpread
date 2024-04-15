@@ -20,6 +20,8 @@ const envSchema = z.object({
   EMAIL_PASSWORD: z.string(),
   EMAIL_REFRESH_TOKEN: z.string(),
   EMAIL_REDIRECT_URI: z.string().url(),
+  HTTPS_KEY: z.string().default(""), 
+  HTTPS_CERT: z.string().default(""),
 });
 
 const _env = envSchema.safeParse(process.env);
