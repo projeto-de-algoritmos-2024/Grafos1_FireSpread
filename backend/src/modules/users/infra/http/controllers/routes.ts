@@ -7,6 +7,7 @@ import { GetUserController } from "./GetUserController";
 import { GetUsersCountController } from "./GetUsersCountController";
 import { AddFriendController } from "./AddFriendController";
 import { LuckyUserController } from "./LuckyUserController";
+import { SearchUserConnectionController } from "./SearchUserConnectionController";
 
 
 export async function userRoutes(app: FastifyInstance) {
@@ -27,6 +28,8 @@ const authenticatedRoutes: FastifyPluginCallback = (app, _, done) => {
 
   app.get("/check-auth", GetUserController);
   app.post("/addFriend", AddFriendController);
+
+  app.get("/search", SearchUserConnectionController);
 
   done();
 }
