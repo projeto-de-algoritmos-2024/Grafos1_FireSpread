@@ -24,7 +24,7 @@ export function AddFriendForm({ className }: AddFriendFormProps) {
   async function addFriend(data: Inputs) {
     try {
       if (data.inviteId) {
-        data.inviteId = parseInt(data.inviteId);
+        data.inviteId = parseInt(data.inviteId.toString());
       }
       const res = await api.post("/users/addFriend", data);
       return {

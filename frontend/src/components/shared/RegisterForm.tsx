@@ -1,10 +1,9 @@
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/api";
 import { AxiosError } from "axios";
 import { AlertDismissible } from "./Alert";
 import { useEffect, useState } from "react";
-import { button } from "@material-tailwind/react";
 
 interface AuthFormProps {
   className?: string;
