@@ -113,7 +113,7 @@ function Home() {
             }}
             backgroundColor="#03071E"
             linkDirectionalParticles={0.5}
-            warmupTicks={1000}
+            warmupTicks={1001}
           />
         )}
       </div>
