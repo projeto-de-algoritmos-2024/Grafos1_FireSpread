@@ -117,9 +117,6 @@ function Home() {
               }
               return "orange";
             }}
-            nodeVal={(a: INode) =>
-              a.id === user?.id ? 10 : 5 + Math.random() * 10
-            }
             backgroundColor="#03071E"
             linkDirectionalParticles={0.5}
             warmupTicks={1001}

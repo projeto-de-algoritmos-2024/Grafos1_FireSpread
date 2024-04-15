@@ -8,30 +8,9 @@ import { env } from "./config/env";
 import { ZodError } from "zod";
 import { AppError } from "./shared/errors/interface/AppError";
 import { EmailVerificationRoutes } from "./modules/emailVerification/infra/http/controllers/routes";
-import * as fs from "fs";
 
 
-let fastifyOptions = {
-};
-
-if (env.NODE_ENV === "production") {
-
-  const certsPath = process.env.HOME + "/certs/";
-  const keyPath = certsPath + env.HTTPS_KEY;
-  const certPath = certsPath + env.HTTPS_CERT;
-
-  fastifyOptions = {
-    https: {
-      key: fs.readFileSync(keyPath),
-      cert: fs.readFileSync(certPath),
-    },
-  };
-}
-
-
-export const app = fastify(
-  fastifyOptions
-);
+export const app = fastify();
 
 app.register(fastifyCors,
   {
