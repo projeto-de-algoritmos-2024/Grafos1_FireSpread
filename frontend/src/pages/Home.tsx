@@ -8,6 +8,7 @@ import {
   AccordionHeader,
 } from "@material-tailwind/react";
 import { AddFriendForm } from "../components/shared/AddFriendForm";
+import CarouselCurios from "../components/shared/CarouselCurios";
 
 function Home() {
   const { user } = useAuth();
@@ -68,31 +69,15 @@ function Home() {
           <AccordionBody>
             <div className="w-full gap-2 flex justify-start items-start flex-col">
               <div className="grid grid-cols-2 gap-8 w-full md:w-[960px] md:grid-cols-4">
-              
-
-                <div className=" rounded-lg bg-opacity-80 bg-purple-600 p-5 justify-center items-center flex flex-col gap-7">
-                  <p className="text-primaryText">
-                    Quatidade de pessoas usando o Fire Spread
-                  </p>
-                  <p className="text-5xl text-primaryText">{usersCount}</p>
-                </div>
-
-                <div className=" rounded-lg bg-opacity-80 bg-primaryButton p-5 justify-center items-center flex flex-col gap-7">
-                  <p className="text-primaryText ">Sua rede alcança:</p>
-                  <p className="text-5xl text-primaryText">
-                    {data.nodes.length - 1}
-                  </p>
-                </div>
+                <CarouselCurios data={data} usersCount={usersCount} />
                 <div className="col-span-2 rounded-lg bg-opacity-80 bg-purple-600 p-5 justify-center items-center flex flex-col gap-7">
                   <p className="text-primaryText">
                     Digite o código de amizade de alguém para se conectar:
                   </p>
-                  <AddFriendForm className= "flex gap-8" />
+                  <AddFriendForm className="flex gap-8" />
                 </div>
                 <div className="rounded-lg bg-opacity-80 bg-purple-600 p-5 justify-center items-center flex flex-col gap-7">
-                  <p className="text-primaryText">
-                    Seu código de amizade é: 
-                  </p>
+                  <p className="text-primaryText">Seu código de amizade é:</p>
                   <p className="text-5xl text-primaryText">{user?.inviteId}</p>
                 </div>
               </div>

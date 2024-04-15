@@ -19,8 +19,8 @@ export default function Register() {
   });
 
   return (
-    <main className="w-screen h-screen bg-background justify-center items-center flex flex-col gap-4">
-      <div className="xl:w-1/3 w-3/4 p-16 rounded-sm bg-foreground flex-col gap-6">
+    <main className="w-screen h-full py-4 overflow-y-scroll bg-background justify-center items-center flex flex-col gap-4">
+      <div className="xl:w-1/3 w-3/4 p-4 sm:p-16 rounded-sm bg-foreground flex-col gap-6">
         <div className="text-center mb-14 flex flex-col gap-4">
           <h1 className="text-2xl text-primaryText font-semibold tracking-tight">
             Faça seu cadastro!

@@ -12,6 +12,7 @@ export default withMT( {
     extend: {
       colors: {
         'background': '#03071E',
+        'success': '#00A896',
         'foreground': '#0B0F26',
         'input': '#1E213A',
         "primaryButton": "#E85D04",
@@ -21,8 +22,7 @@ export default withMT( {
         "stroke": "#585858",
         "inputText": "#E0E0E0",
         "error": "#BF281B",
-        "warning": "#F5BD42",
-        "success": "#00A896",
+        "warning": "#F5BD42"
       },
       keyframes: {
         slidePlaceholderMd: {

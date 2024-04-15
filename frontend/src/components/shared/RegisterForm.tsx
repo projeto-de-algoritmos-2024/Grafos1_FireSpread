@@ -1,9 +1,10 @@
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../lib/api";
 import { AxiosError } from "axios";
 import { AlertDismissible } from "./Alert";
 import { useEffect, useState } from "react";
+import { button } from "@material-tailwind/react";
 
 interface AuthFormProps {
   className?: string;
@@ -36,7 +37,8 @@ export function RegisterForm({ className }: AuthFormProps) {
   const [verifyButtonText, setVerifyButtonText] = useState(
     "receber email de confirmação"
   );
-  const [VerifyButtonColor, setVerifyButtonColor] = useState("primaryButton");
+  const [VerifyButtonColor, setVerifyButtonColor] =
+    useState("bg-primaryButton");
 
   const navigate = useNavigate();
 
@@ -62,14 +64,13 @@ export function RegisterForm({ className }: AuthFormProps) {
   async function sendConfirmationEmail() {
     try {
       setVerifyButtonText("enviando email...");
-      setVerifyButtonColor("gray");
 
       const res = await api.post("/email/create", {
         email: watch("email"),
       });
 
       setVerifyButtonText("email enviado com sucesso!");
-      setVerifyButtonColor("red");
+      setVerifyButtonColor("bg-success");
 
       return {
         status: res.status,
@@ -77,11 +78,17 @@ export function RegisterForm({ className }: AuthFormProps) {
       };
     } catch (err) {
       const axiosErr = err as AxiosError;
+      setVerifyButtonText("erro ao enviar email");
+      setVerifyButtonColor("bg-error");
 
       const responseData = axiosErr.response?.data as { message: string };
 
       setAlertMessage(responseData.message ?? "Erro ao enviar email");
       setAlertOpen(true);
+      setTimeout(() => {
+        setVerifyButtonText("receber email de confirmação");
+        setVerifyButtonColor("bg-primaryButton");
+      }, 3000);
 
       return {
         status: axiosErr.response?.status ?? 500,
@@ -145,7 +152,7 @@ export function RegisterForm({ className }: AuthFormProps) {
           <input
             className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
             type="text"
-            placeholder="Salivan Silveira da Silva"
+            placeholder="John Doe da Silva"
             {...register("name", { required: true })}
             aria-invalid={errors.name ? "true" : "false"}
           />
@@ -178,7 +185,7 @@ export function RegisterForm({ className }: AuthFormProps) {
               aria-invalid={errors.emailConfirmation ? "true" : "false"}
             />
             <button
-              className={`text-primaryText text-sm bg-${VerifyButtonColor} p-2 rounded-md`}
+              className={`text-primaryText text-sm ${VerifyButtonColor} p-2 rounded-md`}
               type="button"
               onClick={sendConfirmationEmail}
             >
@@ -208,13 +215,29 @@ export function RegisterForm({ className }: AuthFormProps) {
         </div>
         <div>
           <label className="text-[#E8E8E8] text-sm">Código de convite</label>
-          <input
-            className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke animate-slide-placeholder-sm"
-            type="number"
-            placeholder={isLucky ? "Você foi sortudo, não precisa 😎" : "1234"}
-            {...register("receivedInviteId")}
-            disabled={isLucky}
-          />
+
+          {isLucky && (
+            <input
+              className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke animate-slide-placeholder-sm"
+              type="number"
+              placeholder={
+                isLucky ? "Você foi sortudo, não precisa 😎" : "1234"
+              }
+              {...register("receivedInviteId")}
+              disabled={isLucky}
+            />
+          )}
+          {!isLucky && (
+            <input
+              className=" w-full h-10 text-inputText rounded-md border-[0.5px] px-4 bg-input border-stroke"
+              type="number"
+              placeholder={
+                isLucky ? "Você foi sortudo, não precisa 😎" : "1234"
+              }
+              {...register("receivedInviteId")}
+              disabled={isLucky}
+            />
+          )}
         </div>
 
         <button
