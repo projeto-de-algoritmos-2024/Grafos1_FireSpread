@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsx build src/server.ts"
   },
   "prisma": {
     "seed": "tsx ./prisma/seed.ts"
