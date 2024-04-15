@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "tsx watch src/server.ts"
   },
+  "prisma": {
+    "seed": "tsx ./prisma/seed.ts"
+  },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.12.5",
     "@types/nodemailer": "^6.4.14",

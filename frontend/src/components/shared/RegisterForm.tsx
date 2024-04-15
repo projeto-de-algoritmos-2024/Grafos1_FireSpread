@@ -54,7 +54,7 @@ export function RegisterForm({ className }: AuthFormProps) {
       const res = await api.get("/users/isLucky");
 
       if (res.status === 200) {
-        setIsLucky(true);
+        setIsLucky(res.data.lucky);
       }
     };
 

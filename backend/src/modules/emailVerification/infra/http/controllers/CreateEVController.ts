@@ -8,8 +8,6 @@ export async function CreateEVController(request: FastifyRequest, response: Fast
   const paramsSchema = z.object({
     email: z.string()
   });
-
-  console.log(request.body);
   
   const { email } = paramsSchema.parse(request.body);
 

@@ -22,11 +22,6 @@ export class NodemailerMailAdapter implements IMailAdapter {
 
   async sendMail({ subject, body, user_email }: SendMailData) {
     
-    console.log("email: " + env.EMAIL)
-    console.log("password: " + env.EMAIL_PASSWORD)
-    console.log("refresh token: " + env.EMAIL_REFRESH_TOKEN)
-    console.log("redirect uri: " + env.EMAIL_REDIRECT_URI)
-
     try {
 
       const accessToken = await oAuth2Client.getAccessToken();

@@ -20,7 +20,6 @@ export async function LuckyUserController(request: FastifyRequest, response: Fas
   const isLucky = await luckyUserUseCase.execute();
 
   const isLuckyString = isLucky.lucky.toString();
-  console.log(isLuckyString);
 
   return response
   .setCookie("luckyToken", isLuckyString, {

@@ -41,7 +41,14 @@ export class CreateUser
 
 
     
-    const inviteId = Math.floor(1000 + Math.random() * 9000)
+    let inviteId = Math.floor(1000 + Math.random() * 9000);
+    
+    const inviteIdAlreadyExists = await this.userRepository.findByInviteId(inviteId);
+
+    while(inviteIdAlreadyExists)
+    {
+      inviteId = Math.floor(1000 + Math.random() * 9000);
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -59,7 +66,6 @@ export class CreateUser
           }
 
 
-          console.log({name, email, password: hashedPassword, birthday:dateOfBirth, inviteId, enrollment, invitedById: userWithInviteId.id})
           const user = await this.userRepository.create({
             name,
             email,
@@ -76,7 +82,6 @@ export class CreateUser
 
     }
     
-    console.log({name, email, password: hashedPassword, birthday:dateOfBirth, inviteId, enrollment})
     const user = await this.userRepository.create({
         name,
         email,

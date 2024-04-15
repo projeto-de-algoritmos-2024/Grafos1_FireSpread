@@ -38,7 +38,6 @@ app.register(EmailVerificationRoutes, { prefix: "/email" });
 
 app.setErrorHandler((error, _, response) => {
 
-  console.log(error);
   if (error instanceof ZodError) {
     return response.status(400).send({
       message: "Validation Error",
@@ -53,7 +52,7 @@ app.setErrorHandler((error, _, response) => {
   if (env.NODE_ENV !== "production") {
     console.error(error);
   } else {
-    // TODO: Should log to external tool like DataDog/NewRelic/Sentry
+    // TODO: registrar em um serviço de log
   }
 
   return response.status(500).send({ error: "Internal Server Error" });

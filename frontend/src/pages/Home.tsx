@@ -10,6 +10,15 @@ import {
 import { AddFriendForm } from "../components/shared/AddFriendForm";
 import CarouselCurios from "../components/shared/CarouselCurios";
 
+interface INode {
+  id: string;
+  index: number;
+  vx: number;
+  vy: number;
+  x: number;
+  y: number;
+}
+
 function Home() {
   const { user } = useAuth();
   const [data, setData] = useState({ nodes: [], links: [] });
@@ -27,6 +36,10 @@ function Home() {
         const res = await api.get(`/users/generate-tree/${user.id}`, {
           withCredentials: true,
         });
+
+        res.data.nodes[0].fx = 0;
+        res.data.nodes[0].fy = 100;
+
         setData(res.data);
       } catch (error) {
         console.error("Error fetching the tree:", error);
@@ -87,15 +100,22 @@ function Home() {
       </div>
 
       <div className="w-screen">
-        <ForceGraph2D
-          graphData={data}
-          linkCurvature={0.2}
-          linkColor={() => "yellow"}
-          nodeColor={() => "orange"}
-          backgroundColor="#03071E"
-          linkDirectionalParticles={0.5}
-          width={window.innerWidth}
-        />
+        {data.nodes.length > 0 && (
+          <ForceGraph2D
+            graphData={data}
+            linkCurvature={0.2}
+            linkColor={() => "yellow"}
+            nodeColor={(a: INode) => {
+              if (a.id === user?.id) {
+                return "green";
+              }
+              return "orange";
+            }}
+            backgroundColor="#03071E"
+            linkDirectionalParticles={0.5}
+            warmupTicks={1000}
+          />
+        )}
       </div>
     </div>
   );
