@@ -15,10 +15,15 @@ let fastifyOptions = {
 };
 
 if (env.NODE_ENV === "production") {
+
+  const certsPath = process.env.HOME + "/certs/";
+  const keyPath = certsPath + env.HTTPS_KEY;
+  const certPath = certsPath + env.HTTPS_CERT;
+
   fastifyOptions = {
     https: {
-      key: fs.readFileSync(env.HTTPS_KEY),
-      cert: fs.readFileSync(env.HTTPS_CERT),
+      key: fs.readFileSync(keyPath),
+      cert: fs.readFileSync(certPath),
     },
   };
 }
