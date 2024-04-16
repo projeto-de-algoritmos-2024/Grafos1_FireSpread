@@ -35,7 +35,7 @@ O fire spread é um site feito para a disciplina de projeto de algoritmos e foi 
 
 ## Vídeo
 
-[![Watch the video](https://img.youtube.com/vi/1J9J9J9J9J9/0.jpg)](https://youtu.be/cOn2AJeDg4w)
+[![Ver video](https://img.youtube.com/vi/cOn2AJeDg4w/0.jpg)](https://www.youtube.com/watch?v=cOn2AJeDg4w)
 
 ## Instalação
 
