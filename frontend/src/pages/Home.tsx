@@ -131,7 +131,6 @@ function Home() {
             graphData={data}
             linkCurvature={0.2}
             linkColor={(link: ILink) => {
-              // increase opacity the heighter the link is
               const opacity = 1.3 - Math.min(1, (100 - link.source.y) / 100);
               return `rgba(245, 189, 66, ${opacity})`;
             }}
