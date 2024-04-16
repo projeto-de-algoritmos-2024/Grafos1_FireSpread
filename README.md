@@ -89,6 +89,7 @@ O fire spread é um site feito para a disciplina de projeto de algoritmos e foi 
 ```bash
   cp .env.example .env
 ```
+obs: caso já tenha uma instância do postgres rodando em sua máquina é recomendável alterar a variável POSTGRES_PORT para 5433 ou alguma outra porta livre
 
 3 - rode o banco de dados
 
