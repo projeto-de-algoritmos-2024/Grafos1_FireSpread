@@ -18,15 +18,21 @@ interface INode {
   x: number;
   y: number;
   name: string;
+  image: HTMLImageElement;
 }
 
 interface IData {
   nodes: INode[];
-  links: Record<string, string>[];
+  links: ILink[];
+}
+
+interface ILink {
+  source: INode;
+  target: INode;
 }
 
 function Home() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [data, setData] = useState<IData>({ nodes: [], links: [] });
 
   const [usersCount, setUsersCount] = useState(0);
@@ -45,6 +51,13 @@ function Home() {
 
         res.data.nodes[0].fx = 0;
         res.data.nodes[0].fy = 100;
+
+        const img = new Image();
+        img.src = "/fireNode.svg";
+
+        res.data.nodes.forEach((node: INode) => {
+          node.image = img;
+        });
 
         setData(res.data);
       } catch (error) {
@@ -99,6 +112,13 @@ function Home() {
                   <p className="text-primaryText">Seu código de amizade é:</p>
                   <p className="text-5xl text-primaryText">{user?.inviteId}</p>
                 </div>
+                <button
+                  className="rounded-lg bg-opacity-80 bg-primaryButton p-5 justify-center items-center flex flex-row gap-2"
+                  onClick={logout}
+                >
+                  <p className="text-2xl text-primaryText">Desconectar</p>
+                  <i className="fas fa-sign-out-alt text-primaryText text-2xl"></i>
+                </button>
               </div>
             </div>
           </AccordionBody>
@@ -110,16 +130,42 @@ function Home() {
           <ForceGraph2D
             graphData={data}
             linkCurvature={0.2}
-            linkColor={() => "yellow"}
+            linkColor={(link: ILink) => {
+              // increase opacity the heighter the link is
+              const opacity = 1.3 - Math.min(1, (100 - link.source.y) / 100);
+              return `rgba(245, 189, 66, ${opacity})`;
+            }}
             nodeColor={(a: INode) => {
               if (a.id === user?.id) {
                 return "#f2ff05";
               }
               return "orange";
             }}
+            nodeRelSize={8}
             backgroundColor="#03071E"
             linkDirectionalParticles={0.5}
             warmupTicks={1001}
+            nodeCanvasObject={(
+              node: INode,
+              ctx: CanvasRenderingContext2D,
+              globalScale: number
+            ) => {
+              let size = 40 / globalScale;
+
+              if (node.id === user?.id) {
+                size = 60 / globalScale;
+              }
+
+              ctx.globalAlpha = 1.3 - Math.min(1, (100 - node.y) / 100);
+              ctx.drawImage(
+                node.image,
+                node.x - size / 2,
+                node.y - size / 1.2,
+                size,
+                size
+              );
+              ctx.globalAlpha = 1;
+            }}
           />
         )}
       </div>

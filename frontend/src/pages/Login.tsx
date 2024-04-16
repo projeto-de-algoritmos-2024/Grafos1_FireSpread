@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthForm } from "../components/shared/AuthForm";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { AboutDialog } from "../components/shared/AboutDialog";
 
 export default function Login() {
   const navigation = useNavigate();
@@ -40,6 +41,7 @@ export default function Login() {
           Cadastrar-me
         </button>
       </div>
+      <AboutDialog />
     </main>
   );
 }
