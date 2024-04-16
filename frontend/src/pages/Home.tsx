@@ -173,14 +173,12 @@ function Home() {
         )}
       </div>
 
-      {true && (
-        <AlertDismissible
-          open={alertOpen}
-          setOpen={setAlertOpen}
-          message="Adicione amigos para visualizar sua conexão crescendo!"
-          type="success"
-        />
-      )}
+      <AlertDismissible
+        open={alertOpen}
+        setOpen={setAlertOpen}
+        message="Adicione amigos para visualizar sua conexão crescendo!"
+        type="success"
+      />
     </div>
   );
 }
