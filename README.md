@@ -16,7 +16,22 @@ O fire spread é um site feito para a disciplina de projeto de algoritmos e foi 
 
 ## Screenshots
 
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+### tela 1 - login
+
+![Captura de Tela 2024-04-15 às 22 11 23](https://github.com/projeto-de-algoritmos-2024/Grafos1_FireSpread/assets/56228340/376dbb71-240a-42ec-82b4-b9a7d8540eab)
+
+### tela 2 - registro
+
+![Captura de Tela 2024-04-15 às 22 11 36](https://github.com/projeto-de-algoritmos-2024/Grafos1_FireSpread/assets/56228340/ae0c0047-2e59-4619-84c4-f0288da35d07)
+
+### tela 3 - home com menu fechado
+
+![Captura de Tela 2024-04-15 às 22 15 42](https://github.com/projeto-de-algoritmos-2024/Grafos1_FireSpread/assets/56228340/a33bbb30-ec55-45a1-b3a6-4431d039cfbb)
+
+### tela 4 - home com menu aberto
+
+![Captura de Tela 2024-04-15 às 22 15 49](https://github.com/projeto-de-algoritmos-2024/Grafos1_FireSpread/assets/56228340/5053944f-5dda-4039-8c7a-ce44c6953d2b)
+
 
 ## Vídeo
 
