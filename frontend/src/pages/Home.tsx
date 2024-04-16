@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { AddFriendForm } from "../components/shared/AddFriendForm";
 import CarouselCurios from "../components/shared/CarouselCurios";
+import { AlertDismissible } from "../components/shared/Alert";
 
 interface INode {
   id: string;
@@ -38,6 +39,7 @@ function Home() {
   const [usersCount, setUsersCount] = useState(0);
 
   const [open, setOpen] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(data.nodes.length === 0);
   const handleOpen = () => setOpen((prev) => !prev);
   const getTree = async () => {
     if (!user) return;
@@ -170,6 +172,15 @@ function Home() {
           />
         )}
       </div>
+
+      {true && (
+        <AlertDismissible
+          open={alertOpen}
+          setOpen={setAlertOpen}
+          message="Adicione amigos para visualizar sua conexão crescendo!"
+          type="success"
+        />
+      )}
     </div>
   );
 }
