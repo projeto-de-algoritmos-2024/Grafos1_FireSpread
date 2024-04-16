@@ -39,32 +39,31 @@ function Home() {
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((prev) => !prev);
+  const getTree = async () => {
+    if (!user) return;
+
+    try {
+      const res = await api.get(`/users/generate-tree/${user.id}`, {
+        withCredentials: true,
+      });
+
+      res.data.nodes[0].fx = 0;
+      res.data.nodes[0].fy = 100;
+
+      const img = new Image();
+      img.src = "/fireNode.svg";
+
+      res.data.nodes.forEach((node: INode) => {
+        node.image = img;
+      });
+
+      setData(res.data);
+    } catch (error) {
+      console.error("Error fetching the tree:", error);
+    }
+  };
 
   useEffect(() => {
-    const getTree = async () => {
-      if (!user) return;
-
-      try {
-        const res = await api.get(`/users/generate-tree/${user.id}`, {
-          withCredentials: true,
-        });
-
-        res.data.nodes[0].fx = 0;
-        res.data.nodes[0].fy = 100;
-
-        const img = new Image();
-        img.src = "/fireNode.svg";
-
-        res.data.nodes.forEach((node: INode) => {
-          node.image = img;
-        });
-
-        setData(res.data);
-      } catch (error) {
-        console.error("Error fetching the tree:", error);
-      }
-    };
-
     const getUsersCount = async () => {
       try {
         const res = await api.get("/users/count");
@@ -95,7 +94,7 @@ function Home() {
         <Accordion open={open} icon={<AccordionIcon />}>
           <AccordionHeader className="bg-transparent" onClick={handleOpen}>
             <h1 className="text-primaryText mb-8 text-4xl">
-              Welcome, {user?.name}!
+              Bem vindo, {user?.name}!
             </h1>
           </AccordionHeader>
           <AccordionBody>
@@ -106,7 +105,10 @@ function Home() {
                   <p className="text-primaryText">
                     Digite o código de amizade de alguém para se conectar:
                   </p>
-                  <AddFriendForm className="flex gap-8" />
+                  <AddFriendForm
+                    className="flex gap-8"
+                    onFriendAdded={getTree}
+                  />
                 </div>
                 <div className="rounded-lg bg-opacity-80 bg-purple-600 p-5 justify-center items-center flex flex-col gap-7">
                   <p className="text-primaryText">Seu código de amizade é:</p>

@@ -28,7 +28,7 @@ export default function CarouselCurios({
     <Carousel
       className="rounded-xl col-span-2"
       autoplay={true}
-      autoplayDelay={3000}
+      autoplayDelay={5000}
       loop={true}
       transition={{
         type: "spring",

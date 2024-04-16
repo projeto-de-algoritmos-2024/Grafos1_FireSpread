@@ -6,13 +6,17 @@ import { AlertDismissible } from "./Alert";
 
 interface AddFriendFormProps {
   className?: string;
+  onFriendAdded: () => void;
 }
 
 type Inputs = {
   inviteId: number;
 };
 
-export function AddFriendForm({ className }: AddFriendFormProps) {
+export function AddFriendForm({
+  className,
+  onFriendAdded,
+}: AddFriendFormProps) {
   const { register, handleSubmit } = useForm<Inputs>();
 
   const [alertOpen, setAlertOpen] = useState(false);
@@ -48,6 +52,7 @@ export function AddFriendForm({ className }: AddFriendFormProps) {
       setAlertMessage(body.message);
       setAlertStatus("success");
       setAlertOpen(true);
+      onFriendAdded();
     } else if (status === 404) {
       setAlertMessage("Usuário não encontrado");
       setAlertStatus("error");
